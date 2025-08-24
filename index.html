@@ -1,0 +1,43 @@
+<script>
+    // Clickable fullscreen images (unchanged)
+    const images = document.querySelectorAll('.gallery img');
+    const overlay = document.getElementById('overlay');
+    const overlayImg = document.getElementById('overlay-img');
+    const closeBtn = document.getElementById('close');
+
+    images.forEach(img => {
+        img.addEventListener('click', () => {
+            overlay.style.display = 'flex';
+            overlayImg.src = img.src;
+        });
+    });
+
+    closeBtn.addEventListener('click', () => overlay.style.display = 'none');
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.style.display = 'none'; });
+
+    // **Falling PHOTOS instead of hearts**
+    const photoArray = [
+        'images/photo1.jpg', 'images/photo2.jpg', 'images/photo3.jpg', 'images/photo4.jpg',
+        'images/photo5.jpg', 'images/photo6.jpg', 'images/photo7.jpg', 'images/photo8.jpg',
+        'images/photo9.jpg', 'images/photo10.jpg', 'images/photo11.jpg', 'images/photo12.jpg',
+        'images/photo13.jpg', 'images/photo14.jpg', 'images/photo15.jpg', 'images/photo16.jpg',
+        'images/photo17.jpg', 'images/photo18.jpg', 'images/photo19.jpg', 'images/photo20.jpg'
+    ];
+
+    function createFallingPhoto() {
+        const fall = document.createElement('img');
+        fall.src = photoArray[Math.floor(Math.random() * photoArray.length)];
+        fall.classList.add('falling-photo');
+        fall.style.left = Math.random() * window.innerWidth + 'px';
+        fall.style.width = (50 + Math.random() * 50) + 'px'; // random size 50–100px
+        fall.style.animationDuration = (5 + Math.random() * 5) + 's'; // 5–10 seconds
+        document.body.appendChild(fall);
+
+        setTimeout(() => fall.remove(), 10000);
+    }
+    setInterval(createFallingPhoto, 800); // new photo every 0.8 sec
+
+    // Background music unmute on first click
+    const music = document.getElementById('bg-music');
+    document.addEventListener('click', () => { music.muted = false; }, { once: true });
+</script>
